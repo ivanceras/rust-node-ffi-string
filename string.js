@@ -1,8 +1,11 @@
 var ffi = require('ffi');
 
 var library_name = './target/release/libstringtools.so';
-var stringtools = ffi.Library(library_name, {
-      'count_substrings': ['string', ['string', 'string']]
+var  api= ffi.Library(library_name, {
+      'get_data': ['string', ['string', 'string']]
 });
 
-console.log(stringtools.count_substrings("bąnana", "na"));
+var call1 = api.get_data("/list", "products");
+
+console.log("call1: ", call1);
+console.log("call2: ", api.get_data("/get", "all_bananas"));

@@ -6,20 +6,24 @@ use std::str;
 use libc::c_char;
 
 #[no_mangle]
-pub extern "C" fn count_substrings(value: *const c_char, substr: *const c_char) -> *const c_char {
-    let c_value = unsafe { CStr::from_ptr(value).to_bytes() };
-    let c_substr = unsafe { CStr::from_ptr(substr).to_bytes() };
-    println!("got: {:?} and {:?}:",c_value, c_substr);
-	match str::from_utf8(c_value) {
-        Ok(value) => match str::from_utf8(c_substr) {
-            Ok(substr) => rust_substrings(value, substr),
-            Err(_) => -1,
-        },
-        Err(_) => -1,
-    };
-	let ret = CString::new("Hello!").unwrap();
-	println!("{:?}", ret);
-	//ret.as_ptr()
+pub extern "C" fn get_data(arg1: *const c_char, arg2: *const c_char) -> *const c_char {
+    let s1 = unsafe { CStr::from_ptr(arg1) };
+    let s2 = unsafe { CStr::from_ptr(arg2) };
+	
+	let str1 = s1.to_str().unwrap();
+	let str2 = s2.to_str().unwrap();
+	println!("str1: {}", str1);
+	println!("str2: {}", str2);
+
+	let content = format!(r#"
+	{{
+		"message": "Hello,
+		"arg1": {},
+		"arg2": {}, 
+	}}"#, str1, str2);
+
+	println!("content: \n{}", content);
+	let ret = CString::new(content.as_bytes()).unwrap();
 	ret.into_raw()
 }
 
