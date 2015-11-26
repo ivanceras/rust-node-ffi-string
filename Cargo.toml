@@ -1,0 +1,12 @@
+[package]
+name = "stringtools"
+version = "0.1.0"
+authors = ["Jovansonlee Cesar <ivanceras@gmail.com>"]
+
+[lib]
+name = "stringtools"
+crate-type = ["dylib"]
+
+
+[dependencies]
+libc = "*"
