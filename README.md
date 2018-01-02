@@ -7,17 +7,12 @@ By feature complete I mean JSON as both argument and return
 ## Install node ffi
 
 ```sh
-
-npm install ffi
-
+npm install ffi --save
 ```
 
-##Build and run!
+## Build and run!
 
 ```sh
-
 cargo build --release
-
 node string.js
-
 ````
